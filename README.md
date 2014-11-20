@@ -30,7 +30,7 @@ $ mpdallexit
 
 ##MPIでHello world
 
-```c:helloworld.c
+```c
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -51,7 +51,7 @@ int main(int argc, char *argv[]){
 
 ##Rank/Size
 
-```c:rank_size.c
+```c
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -79,7 +79,12 @@ int main(int argc,char *argv[]){
 
 ##Send/Recv
 
-```c:send_recv.c
+```c
+
+#include <stdio.h>
+#include <stdlib.h>
+
+#include "mpi.h"
 int main(int argc,char *argv[]){
 
 	int myrank;
