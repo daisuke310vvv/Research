@@ -9,22 +9,28 @@ MPIを用いて複数PCでの同期処理を行う。
 
 * MPICH2でのMPIデーモンの実行方法  
 
-	```mpdの立ち上げ
-	$ mpdboot -n 2 -f mpd.hosts //オプション-n は同期するPC台数
-	```
+mpdの立ち上げ
 
-	```mpdの起動確認
-	$ mpdtrace
-	```
+```
+$ mpdboot -n 2 -f mpd.hosts //オプション-n は同期するPC台数
+```
 
-	```終了
-	$ mpdallexit
-	```
+mpdの起動確認
+
+```
+$ mpdtrace
+```
+
+終了
+
+```
+$ mpdallexit
+```
 
 
 ##MPIでHello world
 
-```helloworld.c
+```c:helloworld.c
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -45,7 +51,12 @@ int main(int argc, char *argv[]){
 
 ##Rank/Size
 
-```
+```c:rank_size.c
+#include <stdio.h>
+#include <stdlib.h>
+
+#include "mpi.h"
+
 int main(int argc,char *argv[]){
 
 	int myrank;
@@ -68,7 +79,7 @@ int main(int argc,char *argv[]){
 
 ##Send/Recv
 
-```
+```c:send_recv.c
 int main(int argc,char *argv[]){
 
 	int myrank;
