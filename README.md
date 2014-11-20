@@ -7,7 +7,22 @@ MPIを用いて複数PCでの同期処理を行う。
 
 ##MPICH2実行方法
 
-* MPICH2でのMPIデーモンの実行方法  
+### mpd立ち上げに必要なもの  
+
+* mpd.hosts  
+	同期するPCのリスト
+
+```
+Server01 //サーバーは必須.一台.
+Client01 //クライアント(ノード)は1~n台
+Client02
+.
+.
+.
+ClientN
+```
+
+###MPICH2でのMPIデーモンの実行方法  
 
 mpdの立ち上げ
 
