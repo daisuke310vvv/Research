@@ -22,6 +22,18 @@ Client02
 ClientN
 ```
 
+* /etc/mpd.conf  
+	IPAdressと名前を指定
+	(権限注意)
+
+```
+192.XXX.XX.XX Server01
+192.XXX.XX.XX Client01
+.
+.
+.
+```
+
 ###MPICH2でのMPIデーモンの実行方法  
 
 mpdの立ち上げ
@@ -42,6 +54,23 @@ $ mpdtrace
 $ mpdallexit
 ```
 
+コンパイル
+
+```
+$ mpicc -o hello hello.c
+```
+
+実行
+
+```
+$ mpiexec -n 2 ./hello
+```
+
+##同期処理の流れ
+
+0. 作成したプログラムをすべてのPCのroot以下に置く。(パスはすべてのPCで同じにする)
+1. サーバPCでmpdboot.
+2. サーバPCでmpiexec.
 
 ##MPIでHello world
 
@@ -133,15 +162,6 @@ int main(int argc,char *argv[]){
 
 ```
 
-##コンパイル
-
-```
-$ mpicc -o hello hello.c
-```
-
-```
-$ mpiexec -n 2 ./hello
-```
 
 
 
@@ -176,3 +196,16 @@ $ mpiexec -n 2 ./hello
 
 
 
+
+## workspace_sato
+
+* workspace_sato
+	- app
+		- src
+			- Server
+				- server.c
+			- Client
+				- client.c
+			- etc
+	- mpd.hosts
+	- README.md
