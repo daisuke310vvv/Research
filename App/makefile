@@ -1,5 +1,5 @@
 CC					= mpicxx
-CFLAGS				= -02 -Wall `pkg-config --cflags opencv` -fopenmp
+CFLAGS				= -O2 -Wall `pkg-config --cflags opencv` -fopenmp
 DEST				= /usr/local/bin
 LDFLAGS				= -L/user/lib64 `pkg-config --libs opencv`				
 LIBS				= -lhighgui -lcv
@@ -11,24 +11,24 @@ NODE				= node
 SERVER				= server
 
 SATO_SERVER_PATH := src/server/
-SATO_CLIENT_PATH := src/client/
+SATO_NODE_PATH := src/client/
 
 all:				$(NODE) $(SERVER)
 
-$(NODE_OBJS):		$(NODE_OBJS)
-					$(CC) $(NODE_OBJS) $(CFLAGS) $(LDFLAGS) -o $(NODE)
+$(NODE):			$(NODE)
+					$(CC) $(SATO_NODE_PATH)$(NODE).cpp $(CFLAGS) $(LDFLAGS) -o $(SATO_NODE_PATH)$(NODE)
 
-$(SERVER_OBJS):		$(SERVER_OBJS)
-					$(CC) $(SERVER_OBJS) $(CFLAGS) $(LDFLAGS) -o $(SERVER)
+$(SERVER):			$(SERVER)
+					$(CC) $(SATO_SERVER_PATH)$(SERVER).cpp $(CFLAGS) $(LDFLAGS) -o $(SATO_SERVER_PATH)$(SERVER)
 
 #clean:;				rm -f *.o *~ $(NODE) $(SERVER)
 
 .cpp.o:
 					$(CC) $(CFLAGS) $(CXXFLAGS) $(LIBS) -c $<
-					server.h
-					node.h
-					node.o
-					server.h
+					$(SATO_SERVER_PATH)server.h
+					$(SATO_NODE_PATH)node.h
+					$(SATO_NODE_PATH)node.o
+					$(SATO_SERVER_PATH)server.o
 
 #
 # # CPPFLAGS	:= -I$(GENICAM_ROOT_V2_1)/library/CPP/include \

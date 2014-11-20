@@ -1,0 +1,29 @@
+CC            = mpicxx
+CFLAGS        = -O3 -Wall `pkg-config --cflags opencv`
+DEST          = /usr/local/bin
+LDFLAGS       =  -L/usr/lib64 `pkg-config --libs opencv`
+CXXFLAGS 	= -g -O0 -fopenmp    			#e.g., CXXFLAGS=-g -O0 for debugging
+LIBS          = -lhighgui -lcv  
+OBJS          = node.o Communication.o Image.o Images.o timer.o
+OBJS2          = server.o Communication.o Image.o make3d.o camera.o xml.o point.o calibration.o timer.o
+
+PROGRAM		= node
+PROGRAM2	= server
+
+all:            $(PROGRAM) $(PROGRAM2)
+
+$(PROGRAM):     $(OBJS)
+		$(CC)  $(OBJS) $(CFLAGS) $(LDFLAGS)-o $(PROGRAM)
+
+$(PROGRAM2):    $(OBJS2)
+		$(CC) $(OBJS2) $(CFLAGS) $(LDFLAGS) -fopenmp -o $(PROGRAM2)
+				
+clean:;         rm -f *.o *~ $(PROGRAM) $(PROGRAM2)
+
+.cpp.o:
+		$(CC) $(CFLAGS) $(CXXFLAGS) $(LIBS) -c $<
+server.h: Communication.h Image.h 
+node.h: Communication.h Image.h
+node.o: Communication.h Image.h timer.o
+server.o: Communication.h Image.h camera.o point.o make3d.o timer.o
+calibration.o:  calibration.h
