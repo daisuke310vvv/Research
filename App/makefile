@@ -22,9 +22,11 @@ LDFLAGS	:= -L$(PYLON_ROOT)/lib64 \
 
 LIBS          = -lhighgui -lcv -fopenmp -lpylonbase -lpylonutility
 #node(client)側でコンパイルするプログラム群
-OBJS          = node.o Communication.o Image.o Images.o timer.o
+#OBJS          = node.o Communication.o Image.o Images.o timer.o
+OBJS          = node.o
 #server側でコンパイルするプログラム群
-OBJS2         = server.o Communication.o Image.o make3d.o camera.o xml.o point.o calibration.o timer.o
+#OBJS2         = server.o Communication.o Image.o make3d.o camera.o xml.o point.o calibration.o timer.o
+OBJS2         = server.o
 
 PROGRAM	= node
 PROGRAM2	= server
@@ -32,17 +34,17 @@ PROGRAM2	= server
 all:            $(PROGRAM) $(PROGRAM2)
 
 $(PROGRAM):     $(OBJS)
-		$(CC)  $(SATO_SERVER_PATH)$(OBJS) $(CFLAGS) $(LDFLAGS) -o $(PROGRAM)
+		$(CC)  $(SATO_CLIENT_PATH)$(OBJS) $(CFLAGS) $(LDFLAGS) -o $(PROGRAM)
 
 $(PROGRAM2):    $(OBJS2)
-		$(CC) $(SATO_CLIENT_PATH)$(OBJS2) $(CFLAGS) $(LDFLAGS) -o $(PROGRAM2)
+		$(CC) $(SATO_SERVER_PATH)$(OBJS2) $(CFLAGS) $(LDFLAGS) -o $(PROGRAM2)
 				
 clean:;         rm -f *.o *~ $(PROGRAM) $(PROGRAM2)
 
 .cpp.o:
 		$(CC) $(CFLAGS) $(CPPFLAGS) $(CXXFLAGS) $(LIBS) -c $<
-server.h: Communication.h Image.h 
-node.h: Communication.h Image.h
-node.o: Communication.h Image.h timer.o
-server.o: Communication.h Image.h camera.o point.o make3d.o timer.o
-calibration.o:  calibration.h
+#server.h: Communication.h Image.h 
+#node.h: Communication.h Image.h
+#node.o: Communication.h Image.h timer.o
+#server.o: Communication.h Image.h camera.o point.o make3d.o timer.o
+#calibration.o:  calibration.h
