@@ -13,7 +13,7 @@ NODE				= node
 SERVER				= server
 
 SATO_SERVER_PATH := src/server/
-SATO_NODE_PATH := src/client/
+SATO_NODE_PATH := src/node/
 
 all:				$(NODE) $(SERVER)
 
