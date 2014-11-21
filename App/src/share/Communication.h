@@ -1,7 +1,7 @@
 #ifndef ONCE
 #define ONCE
 //２重インクルード防止
-#include "Image.h"
+#include "./Image.h"
 #include "init.h"
 #include <cstdio>
 #include <cstdlib>
