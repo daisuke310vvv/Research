@@ -4,9 +4,20 @@
 
 int main(int argc,char *argv[]){
 
+	Communication *serverdata = new Communication(argc,argv);
+
+	if(serverdata -> getMyrank() != 0){
+		puts("server is not rank 0.");
+		return 1;
+	}
+
 	hello_world();
 
-	return 0;
+
+	delete (serverdata);
+	serverdata = NULL;
+
+	return EXIT_SUCCESS;
 }
 
 void hello_world(){
