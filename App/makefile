@@ -4,6 +4,8 @@ DEST				= /usr/local/bin
 LDFLAGS				= -L/user/lib64 `pkg-config --libs opencv`				
 LIBS				= -lhighgui -lcv
 
+BIN_PATH			= bin/
+
 NODE_OBJS			= node.o
 SERVER_OBJS			= server.o
 
@@ -16,10 +18,10 @@ SATO_NODE_PATH := src/client/
 all:				$(NODE) $(SERVER)
 
 $(NODE):			$(NODE)
-					$(CC) $(SATO_NODE_PATH)$(NODE).cpp $(CFLAGS) $(LDFLAGS) -o $(SATO_NODE_PATH)$(NODE)
+					$(CC) $(SATO_NODE_PATH)$(NODE).cpp $(CFLAGS) $(LDFLAGS) -o $(BIN_PATH)$(NODE)
 
 $(SERVER):			$(SERVER)
-					$(CC) $(SATO_SERVER_PATH)$(SERVER).cpp $(CFLAGS) $(LDFLAGS) -o $(SATO_SERVER_PATH)$(SERVER)
+					$(CC) $(SATO_SERVER_PATH)$(SERVER).cpp $(CFLAGS) $(LDFLAGS) -o $(BIN_PATH)$(SERVER)
 
 #clean:;				rm -f *.o *~ $(NODE) $(SERVER)
 
