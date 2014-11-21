@@ -2,7 +2,7 @@
 #define ONCE
 //２重インクルード防止
 #include "./Image.h"
-#include "init.h"
+#include "./init.h"
 #include <cstdio>
 #include <cstdlib>
 #include <string>
