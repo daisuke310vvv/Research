@@ -3,16 +3,32 @@
 
 ##MPI
 MPIの使い方の説明を書いていく。
-MPIを用いて複数PCでの同期処理を行う。
+スポーツビジョン班では、1台のサーバPCと15台のノードPCを用いて同期処理を行う。
+なるべく汎用性のあるように説明していく。
+
+##前提条件
+前提条件として、各PCに以下のものが揃っているとする。(OSはCentOS6.5)
+
+* opencv/opencv2
+* mpich2
+* python
+* C/C++
+* gcc/g++
+
+##MPIの基本
 
 ##MPICH2実行方法
 
 ### mpd立ち上げに必要なもの  
 
-* mpd.hosts  
-	同期するPCのリスト
+### server PC
 
-```
+* mpd.hosts  
+	同期するPCのリスト。このファイル内に記述してあるPCで同期処理が行われる。
+	Server01は必須。ClientXXはLANケーブルで繋いであるPCのみを指定する。コメントアウトしたPCは同期処理されない。
+	mpd.hostsファイルはコマンドラインで実行する時に、そのディレクトリになくてはならない。
+
+``` mpd.hosts
 Server01 //サーバーは必須.一台.
 Client01 //クライアント(ノード)は1~n台
 Client02
@@ -23,8 +39,8 @@ ClientN
 ```
 
 * /etc/mpd.conf  
-	IPAdressと名前を指定
-	(権限注意)
+	上記のmpd.hostsファイル内で指定してある名前(Server01やClientXX)は/etc/直下にあるmpd.confというファイル内で定義されてある。
+	名前とそのPCのIPアドレスを指定する。もしPCを増やしたりなど、新しいPCを追加する場合はこのファイル内に追加する必要がある。
 
 ```
 192.XXX.XX.XX Server01
@@ -34,7 +50,7 @@ ClientN
 .
 ```
 
-###MPICH2でのMPIデーモンの実行方法  
+###MPIの基本的な実行方法  
 
 mpdの立ち上げ
 
@@ -42,16 +58,10 @@ mpdの立ち上げ
 $ mpdboot -n 2 -f mpd.hosts //オプション-n は同期するPC台数
 ```
 
-mpdの起動確認
+mpdの起動確認(同期されているPCの名前が返ってくる)
 
 ```
 $ mpdtrace
-```
-
-終了
-
-```
-$ mpdallexit
 ```
 
 コンパイル
@@ -63,8 +73,53 @@ $ mpicc -o hello hello.c
 実行
 
 ```
-$ mpiexec -n 2 ./hello
+$ mpiexec -n 2 ./hello //-nは同期するPCの台数
 ```
+
+終了
+
+```
+$ mpdallexit
+```
+
+##構築した環境の説明
+スポーツビジョン班の実験のために作成した環境について説明する。この環境は、Appというディレクトリ内に構成されてある。
+以下に簡単な概要を示す。
+
+* bin/	: 実行ファイル(node/server)を格納するディレクトリ
+* src/	: 実験に用いられるすべてのソースコードを格納するディレクトリ
+* include/	: src/内のソースコードのヘッダーファイルを格納するディレクトリ
+* main	: 実行ファイル(MPIを用いて同期処理をする場合に用いる。bin/直下のファイルがnode/serverPCでこの実行ファイルとなる)
+* distribute.py	: serverPCからそれぞれのnodePCに配布する用のスクリプト。またmainファイルをnode/server用に書き換える
+* node_list.txt	: distribute.pyで転送するPCのIPアドレスの一覧
+* mpd.hosts		: mpdを実行するPCの一覧
+
+開発時は、ヘッダーファイル(*.h)と実装ファイル(*.cpp)をそれぞれ適当なディレクトリに入れる。
+src内にあるmakefileを用いてコンパイルする。
+以下に簡単なmakefileの概要(流れ)を説明する。
+
+makeすると、まずsrc内のすべてのプログラムをコンパイルする(include内のヘッダーファイルも含めて)。
+その後、binディレクリ内にnodeとserverという名前の実行ファイルを２つ生成する。
+(それぞれ個別にコンパイル等する必要はない。)
+
+makefileを用いてコンパイルすると、nodeとserverそれぞれの実行ファイルができあがるので、この時点で同期処理が可能となる。
+
+次に、MPIを用いて同期処理をするための流れを説明する。
+
+まずは、作成した実行ファイルをそれぞれのPCに配布する。
+Appディレクトリ直下で、distribute.pyを実行する。
+
+```
+$python distribute.py
+```
+
+すると、binディレクトリ内のnode実行ファイルをコピーし、Appディレクトリ内にmainという実行ファイルを作る。
+その後、Appディレクトリが格納されているworkspace_satoというディレクトリをそれぞれのnodePCのrootのhome直下に配布する。
+すべてのnodePCに配布がおわると、App/mainファイルを一度消し、今度はbin/serverをApp/mainとしてコピーする。
+
+これによって、serverPCには、server用の実行ファイルmain、nodePCにはnode用の実行ファイルmainが配布されたことになる。
+
+あとは、MPIのコマンドを打つことで同期処理を実行する。
 
 ##同期処理の流れ
 
