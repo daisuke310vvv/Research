@@ -26,14 +26,17 @@ DEPENDS				= $(OBJECTS:.o=.d)
 
 ../bin/node:	./obj/node.o ./obj/Communication.o ./obj/Image.o $(LIBS)
 				$(CC) -o $@ $^ $(LDFLAGS)
+				@echo node実行ファイルを生成しました
 
 ../bin/server:	./obj/server.o ./obj/Communication.o ./obj/Image.o $(LIBS)
 				$(CC) -o $@ $^ $(LDFLAGS)
+				@echo server実行ファイルを生成しました
 
 #すべてのファイルをコンパイル
 $(OBJDIR)/%.o:	%.cpp
 				@[ -d $(OBJDIR) ] || mkdir -p $(OBJDIR)
 				$(CC) $(CFLAGS) $(INCLUDE) -o $@ -c $<
+				@echo コンパイル
 
 all: clean $(TARGET)
 
