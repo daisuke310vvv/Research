@@ -31,10 +31,10 @@ int main(int argc,char *argv[]){
 	return EXIT_SUCCESS;
 }
 
-void noed_hello_world(){
+void node_hello_world(){
 
 
-	printf("hello world on Client\n");
+	printf("hello world on Client\nfaaaaa\n");
 
 }
 
