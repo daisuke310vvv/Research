@@ -89,6 +89,7 @@ $ mpdallexit
 * bin/	: 実行ファイル(node/server)を格納するディレクトリ
 * src/	: 実験に用いられるすべてのソースコードを格納するディレクトリ
 * include/	: src/内のソースコードのヘッダーファイルを格納するディレクトリ
+* data/	: 実験用の画像データを格納するディレクトリ
 * main	: 実行ファイル(MPIを用いて同期処理をする場合に用いる。bin/直下のファイルがnode/serverPCでこの実行ファイルとなる)
 * distribute.py	: serverPCからそれぞれのnodePCに配布する用のスクリプト。またmainファイルをnode/server用に書き換える
 * node_list.txt	: distribute.pyで転送するPCのIPアドレスの一覧
