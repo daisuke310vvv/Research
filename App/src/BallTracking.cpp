@@ -1,4 +1,3 @@
-
 #include "BallTracking.h"
 
 void ballTrackingByHoughTransform(cv::Mat inputImg){

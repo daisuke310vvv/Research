@@ -27,7 +27,7 @@ all: ../bin/server ../bin/node
 				$(CC) -o $@ $^ $(LDFLAGS)
 				@echo server実行ファイルを生成しました
 
-../bin/node:	./obj/node.o ./obj/Communication.o ./obj/Image.o $(LIBS)
+../bin/node:	./obj/node.o ./obj/Communication.o ./obj/Image.o ../include/BallTracking.h $(LIBS)
 				$(CC) -o $@ $^ $(LDFLAGS)
 				@echo node実行ファイルを生成しました
 
