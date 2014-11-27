@@ -5,7 +5,7 @@ void useStorage(CvMemStorage *parentStorage,IplImage *inputImg){
 		
 	CvMemStorage *childStorage = cvCreateChildMemStorage(parentStorage);
 
-
+	printf
 	circles = cvHoughCircles(
 			inputImg,
 			childStorage,

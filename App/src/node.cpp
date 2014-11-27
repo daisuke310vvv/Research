@@ -2,10 +2,6 @@
 
 int main(int argc,char *argv[]){
 
-	/* ---------------------------------------------- */
-	// 
-	/* ---------------------------------------------- */
-	/*
 	Communication *nodedata = new Communication(argc,argv);
 
 	if(nodedata->getMyrank() == 0){
@@ -13,23 +9,21 @@ int main(int argc,char *argv[]){
 		return 1;
 	}
 
+
+	printf("my rank is %d\n",nodedata->getMyrank());
 	//nodedataを使ってデータのやりとり
 	//node側は基本的にカメラから得た画像を処理してサーバ側に情報を投げる
-
-	hello_world();
-
 
 	delete (nodedata);
 	nodedata = NULL;
 
-	*/
+	// BallTracking
+	/* ------------------------------------------------------- */
+	//char imgName[256];
+	//sprintf(imgName,"/root/data/data1/%d.bmp",17800);
+	//IplImage *img = cvLoadImage(imgName,CV_LOAD_IMAGE_GRAYSCALE);
 
-	char imgName[256];
-	sprintf(imgName,"/root/data/data1/%d.bmp",17800);
-	
-	IplImage *img = cvLoadImage(imgName,CV_LOAD_IMAGE_GRAYSCALE);
-
-	ballTrackingByHoughTransform(img);
+	//ballTrackingByHoughTransform(img);
 		/*
 	int i;
 	for(i = 0;i<60;i++){
@@ -41,6 +35,7 @@ int main(int argc,char *argv[]){
 		ballTrackingByHoughTransform(img);
 	}
 	*/
+	/* ------------------------------------------------------- */
 
 	return EXIT_SUCCESS;
 }
