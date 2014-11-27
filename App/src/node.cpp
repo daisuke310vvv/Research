@@ -1,5 +1,3 @@
-#include <stdio.h>
-
 #include "node.h"
 
 int main(int argc,char *argv[]){
@@ -27,6 +25,8 @@ int main(int argc,char *argv[]){
 	nodedata = NULL;
 
 	*/
+	cv::Mat inputImg;
+	ballTrackingByHoughTransform(inputImg);
 
 	return EXIT_SUCCESS;
 }

@@ -1,17 +1,20 @@
-#include <opencv2/core/core.hpp>
-#include <opencv2/imgproc/imgproc.hpp>
-#include <opencv2/highgui/highgui.hpp>
-#include <time.h>
+//#include <opencv2/core/core.hpp>
+//#include <opencv2/imgproc/imgproc.hpp>
+//#include <opencv2/highgui/highgui.hpp>
+#include <opencv/cv.h>
+#include <opencv/cvaux.h>
+#include <opencv/cxcore.h>
+#include <opencv/highgui.h>
 
 /* --------------------------------------------------------------- */
 // 構造体
 /* --------------------------------------------------------------- */
-struct origin{
+struct Origin{
 	int x;
 	int y;
 };
 
-struct size{
+ struct Size{
 	int width;
 	int height;
 };
@@ -19,8 +22,8 @@ struct size{
 typedef struct ball{
 	int radius;		//半径
 	cv::Point center;		//ボールの中心座標
-	origin origin;	//ボールの左上座標
-	size size;		//ボールの横幅、縦幅
+	Origin origin;	//ボールの左上座標
+	Size size;		//ボールの横幅、縦幅
 }ball;
 
 /* --------------------------------------------------------------- */
