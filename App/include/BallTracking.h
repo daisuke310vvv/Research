@@ -32,7 +32,7 @@ typedef struct ball{
 // ハフ変換によるボール検出
 /* --------------------------------------------------------------- */
 // @param inputImg 入力画像(グレイ画像)
-void ballTrackingByHoughTransform(cv::Mat inputImg);
+void ballTrackingByHoughTransform(IplImage *inputImg);
 /* --------------------------------------------------------------- */
 
 

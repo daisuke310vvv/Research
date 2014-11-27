@@ -1,26 +1,14 @@
 #include "BallTracking.h"
 
-void ballTrackingByHoughTransform(IplImage inputImg){
+/*
+void useStorage(CvMemStorage *parentStorage,IplImage *inputImg){
+		
+	CvMemStorage *childStorage = cvCreateChildMemStorage(parentStorage);
 
-	//opencv2.4.9
-	//std::vector<cv::Vec3f>circles;
 
-	int i;
-	float *p;
-	IplImage *src_img = 0, *src_img_gray = 0;
-	CvMemStorage *storage;
-	CvSeq *circles = 0;
-
-	IplImage *inputImg_gray = cvLoadImage(inputImg,CV_LOAD_IMAGE_GRAYSCALE);
-
-	// (2)ハフ変換のための前処理（画像の平滑化を行なわないと誤検出が発生しやすい）
-	cvSmooth (inputImg_gray,inputImg_gray, CV_GAUSSIAN, 11, 11, 0, 0);
-	storage = cvCreateMemStorage (0);
-
-	// (3)ハフ変換による円の検出と検出した円の描画
-	circles = cvHoughCircles (
-			inputImg_gray,
-			storage,
+	circles = cvHoughCircles(
+			inputImg,
+			childStorage,
 			CV_HOUGH_GRADIENT,
 			1,
 			30,
@@ -30,10 +18,57 @@ void ballTrackingByHoughTransform(IplImage inputImg){
 			30
 			);
 
+	//cvReleaseSeq(&circles);
+	//cvReleaseMemStorage(&childStorage);
+
+}
+*/
+
+void ballTrackingByHoughTransform(IplImage *inputImg){
+
+	printf("ballTrackingByHoughTransform");
+
+	//opencv2.4.9
+	//std::vector<cv::Vec3f>circles;
+
+	int i;
+	float *p;
+	CvMemStorage *storage;
+
+	printf("hoge\n");
+	
+	// (2)ハフ変換のための前処理（画像の平滑化を行なわないと誤検出が発生しやすい）
+	cvSmooth (inputImg,inputImg, CV_GAUSSIAN, 11, 11, 0, 0);
+	printf("hoge\n");
+	storage = cvCreateMemStorage (0);
+	printf("hoge\n");
+
+	//CvSeq *circles = 0;
+	printf("hoge\n");
+
+	CvSeq *circles = cvHoughCircles(
+			inputImg,
+			storage,
+			CV_HOUGH_GRADIENT,
+			1,
+			30,
+			100,
+			10,
+			10,
+			30
+			);
+	printf("hoge\n");
+
+	//useStorage(storage,inputImg);
+
+	// (3)ハフ変換による円の検出と検出した円の描画
+/*
+	printf("hoge\n");
 	//circles.size()個の数で配列を生成
 	//この配列に検出した数分、ボールの構造体を格納
 	ball *balls = (ball*)malloc(sizeof(ball) * circles->total);
 
+	printf("hoge");
 
 	for (i = 0; i < circles->total; i++) {
 
@@ -59,7 +94,11 @@ void ballTrackingByHoughTransform(IplImage inputImg){
 
 		balls[i] = b;
 
+		printf("Ball count %d/n",i);
+		printf("center(%f %f)/n",b.center.x,b.center.y);
+
 	}
+	*/
 
 	/* opencv2.4.9
 	   cv::HoughCircles(inputImg,					// image		- 8Bit Gray Scale Image.
@@ -105,4 +144,8 @@ void ballTrackingByHoughTransform(IplImage inputImg){
 	}
 	*/
 
+	cvClearSeq(circles);
+	cvReleaseMemStorage(&storage);
+
 }
+

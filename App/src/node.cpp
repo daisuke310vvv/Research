@@ -2,8 +2,6 @@
 
 int main(int argc,char *argv[]){
 
-	node_hello_world();
-
 	/* ---------------------------------------------- */
 	// 
 	/* ---------------------------------------------- */
@@ -25,8 +23,24 @@ int main(int argc,char *argv[]){
 	nodedata = NULL;
 
 	*/
-	cv::Mat inputImg;
-	ballTrackingByHoughTransform(inputImg);
+
+	char imgName[256];
+	sprintf(imgName,"/root/data/data1/%d.bmp",17800);
+	
+	IplImage *img = cvLoadImage(imgName,CV_LOAD_IMAGE_GRAYSCALE);
+
+	ballTrackingByHoughTransform(img);
+		/*
+	int i;
+	for(i = 0;i<60;i++){
+
+		char imgName[256];
+		sprintf(imgName,"/root/data/data1/%d.bmp",17800+i);
+		IplImage *img = cvLoadImage(imgName,CV_LOAD_IMAGE_GRAYSCALE);
+
+		ballTrackingByHoughTransform(img);
+	}
+	*/
 
 	return EXIT_SUCCESS;
 }
