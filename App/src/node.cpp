@@ -32,24 +32,21 @@ int main(int argc,char *argv[]){
 	/* ---------------------------------------------------------- */
 	// BallTracking
 	/* ---------------------------------------------------------- */
-	//char imgName[256];
-	//sprintf(imgName,"/root/data/data1/%d.bmp",17800);
-	//IplImage *img = cvLoadImage(imgName,CV_LOAD_IMAGE_GRAYSCALE);
+	char imgName[256];
 
-	//ballTrackingByHoughTransform(img);
-		/*
 	int i;
 	for(i = 0;i<60;i++){
 
 		char imgName[256];
 		sprintf(imgName,"/root/data/data1/%d.bmp",17800+i);
-		IplImage *img = cvLoadImage(imgName,CV_LOAD_IMAGE_GRAYSCALE);
+		IplImage *srcImg = cvLoadImage(imgName,CV_LOAD_IMAGE_GRAYSCALE);
+		IplImage *inputImg = cvCreateImage(cvGetSize(srcImg),8,1);
 
-		ballTrackingByHoughTransform(img);
+		ballTrackingByHoughTransform(inputImg);
 	}
-	*/
 	/* ---------------------------------------------------------- */
 
+	
 
 	/* ---------------------------------------------------------- */
 	// デストラクト

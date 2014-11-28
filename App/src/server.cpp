@@ -22,7 +22,8 @@ int main(int argc,char *argv[]){
 	// ノードからの受信
 	/* ----------------------------------------------------------- */
 	//before(iNodenum) -> after(serverdata->getNodenum())
-	for(int i =0;i<serverdata->getNodenum();i++){
+	printf("node num %d\n",serverdata->getNodenum());
+	for(int i =0;i<serverdata->getNodenum()-1;i++){
 
 		printf("received nodeRank %d\n",serverdata->procrankReceive());
 
@@ -34,7 +35,7 @@ int main(int argc,char *argv[]){
 	// MPI_Barrier();
 	// -> 全プロセスがこの関数を呼ぶまでブロック
 	/* ----------------------------------------------------------- */
-	MPI_Barrier(MPI_COMMAND_WORLD);
+	MPI_Barrier(MPI_COMM_WORLD);
 	/* ----------------------------------------------------------- */
 	printf("end MPI_Barrier\n");
 

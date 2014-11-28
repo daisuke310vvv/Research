@@ -25,7 +25,7 @@ void useStorage(CvMemStorage *parentStorage,IplImage *inputImg){
 
 void ballTrackingByHoughTransform(IplImage *inputImg){
 
-	printf("ballTrackingByHoughTransform");
+	printf("ballTrackingByHoughTransform\n");
 
 	//opencv2.4.9
 	//std::vector<cv::Vec3f>circles;
@@ -34,27 +34,29 @@ void ballTrackingByHoughTransform(IplImage *inputImg){
 	float *p;
 	CvMemStorage *storage;
 
+	IplImage *im = cvCreateImage(cvGetSize(inputImg),8,1);
+
 	printf("hoge\n");
 	
 	// (2)ハフ変換のための前処理（画像の平滑化を行なわないと誤検出が発生しやすい）
-	cvSmooth (inputImg,inputImg, CV_GAUSSIAN, 11, 11, 0, 0);
+	cvSmooth (im,im, CV_GAUSSIAN, 11, 11, 0, 0);
 	printf("hoge\n");
-	storage = cvCreateMemStorage (0);
+	storage = cvCreateMemStorage(0);
 	printf("hoge\n");
 
 	//CvSeq *circles = 0;
 	printf("hoge\n");
 
 	CvSeq *circles = cvHoughCircles(
-			inputImg,
-			storage,
-			CV_HOUGH_GRADIENT,
-			1,
-			30,
-			100,
-			10,
-			10,
-			30
+			im,			//入力画像
+			storage,			//検出された円を保存する領域
+			CV_HOUGH_GRADIENT,	//メソッド
+			1,					//dp 円の中心を求める際の解像度
+			30,					//中心座標間の最小間隔
+			100,				//Cannyでの閾値の大きい方
+			10,					//中心検出計算時の閾値
+			10,					//検出すべき円の最小半径
+			30					//検出すべき円の最大半径
 			);
 	printf("hoge\n");
 
@@ -95,7 +97,6 @@ void ballTrackingByHoughTransform(IplImage *inputImg){
 
 		printf("Ball count %d/n",i);
 		printf("center(%f %f)/n",b.center.x,b.center.y);
-
 	}
 	*/
 
