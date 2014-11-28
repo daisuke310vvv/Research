@@ -94,5 +94,10 @@ public:
 	int testsend(int * send_data);
 	int *testreceive(int pcnum);
 
+	/*
+	 * Barrier
+	 **/
+	void barrier();
+
 };
 
