@@ -182,3 +182,9 @@ int *Communication::testreceive(int pcunum) {
 
 	return receivelist;
 }
+
+void barrier(){
+
+
+
+}
